@@ -5,30 +5,37 @@
             <p class="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit inventore porro repellendus eos officia voluptas magni voluptatibus ut tenetur aut. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, voluptatem.</p>
             <button class="btn btn-primary btn-lg rounded-pill">Add New Website</button>
         </div>
+
+        <!-- ========== Alert Message ========== -->
+        <div *ngIf="isSuccess" class="bg-success p-3 my-3 text-white rounded">
+            {{ alertMessage }}
+        </div>
+
+        <!-- ========== Form =========== -->
         <div class="form py-5">
-            <form>
+            <form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
                 <div class="row justify-content-center ">
                     <div class="col-lg-6 border rounded py-5 glass">
+                        <h2 class="text-center text-success">{{FormState}} Site</h2>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Website Name</label>
-                            <input type="text" name="siteName"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" name="siteName"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="siteName" >
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Website URL</label>
-                            <input type="text" name="siteUrl" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" name="siteUrl" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="siteUrl">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Website Image link</label>
-                            <input type="text" name="imageUrl" class="form-control" id="exampleInputPassword1">
+                            <input type="text" name="imageUrl" class="form-control" id="exampleInputPassword1" [(ngModel)]="imgUrl">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-outline-primary rounded-pill w-100">Add Site</button>    
+                                <button type="submit" class="btn btn-primary rounded-pill w-100">{{FormState}} Site</button>    
                             </div>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-outline-danger rounded-pill w-100">Cancel</button>
-                            </div>
-                            
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -36,21 +43,21 @@
         </div>
 
         <div class="row pt-5">
-            <div class="col-lg-4 col-md-6 col-sm-12">
+            <div *ngFor="let site of allSites | async" class="col-lg-4 col-md-6 pb-4">
                 <div class="card">
-                    <img src="data:image/png;base64,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" class="card-img-top" alt="Godaddy logo">
+                    <img [src]="site.imageUrl">
                     <div class="card-body">
-                      <h5 class="card-title">Godaddy</h5>
-                      <a class="card-text" href="https://godaddy.com">https://godaddy.com</a>
+                      <h5 class="card-title">{{site.siteName}}</h5>
+                      <a class="card-text" href="https://godaddy.com">{{site.siteUrl}}</a>
                       <div class="d-flex justify-content-between mt-3">
                         <div class="col-lg-6">
                             <a href="#" class="btn btn-success mt-3">Add Password</a>
                         </div>
                         <div class="col-lg-3">
-                            <a href="#" class="btn btn-outline-primary mt-3">Edit</a>
+                            <a href="#" class="btn btn-outline-primary mt-3" (click)="onEdit(site.siteName, site.siteUrl, site.imageUrl, site.id)" >Edit</a>
                         </div>
                         <div class="col-lg-3">
-                            <a href="#" class="btn btn-outline-danger mt-3">Delete</a>
+                            <a href="#" class="btn btn-outline-danger mt-3" (click)="onDelete(site.id)" >Delete</a>
                         </div>
                       </div>
                       
