@@ -48,10 +48,11 @@
                     <img [src]="site.imageUrl">
                     <div class="card-body">
                       <h5 class="card-title">{{site.siteName}}</h5>
-                      <a class="card-text" href="https://godaddy.com">{{site.siteUrl}}</a>
+                      <a class="card-text" [href]="site.siteUrl">{{site.siteUrl}}</a>
                       <div class="d-flex justify-content-between mt-3">
                         <div class="col-lg-6">
-                            <a href="#" class="btn btn-success mt-3">Add Password</a>
+                            <a routerLink="/passwords" [queryParams]="{id : site.id, name : site.siteName, url : site.siteUrl}" href="#" 
+                            class="btn btn-success mt-3">Add Password</a>
                         </div>
                         <div class="col-lg-3">
                             <a href="#" class="btn btn-outline-primary mt-3" (click)="onEdit(site.siteName, site.siteUrl, site.imageUrl, site.id)" >Edit</a>

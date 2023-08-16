@@ -37,7 +37,7 @@ export class SiteListComponent{
         this.showAlert("Data Saves Successfully")
       })
       .catch((error: any) => {
-        console.log(error);      
+        this.showAlert(error);      
       })
     }
     else if(this.FormState === "Edit"){
@@ -46,7 +46,7 @@ export class SiteListComponent{
         this.showAlert("Data Updated!");
       })
       .catch((err) => {
-        console.log(err);
+        this.showAlert(err);
         
       })
     }
