@@ -8,13 +8,14 @@
         </div>
 
         <!-- ========== Alert Message ========== -->
-        <div *ngIf="isSuccess" class="bg-success p-3 my-3 text-white rounded">
-            {{ alertMessage }}
+        <div *ngIf="isSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+            {{alertMessage}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
         <!-- ========== Form =========== -->
         <div class="form py-5">
-            <form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+            <form #form="ngForm">
                 <div class="row justify-content-center ">
                     <div class="col-lg-6 border shadow rounded py-5 glass">
                         <h2 class="text-center text-success">{{FormState}} Site</h2>
@@ -32,10 +33,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary rounded-pill w-100">{{FormState}} Site</button>    
+                                <button type="submit" class="btn btn-primary rounded-pill w-100" (click)="onSubmit(form.value)">{{FormState}} Site</button>    
                             </div>
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-outline-danger rounded-pill w-100">Cancel</button>
+                                <button type="submit" class="btn btn-outline-danger rounded-pill w-100" (click)="resetForm()" >Cancel</button>
                             </div>                            
                         </div>
                     </div>
@@ -51,17 +52,17 @@
                     <img [src]="site.imageUrl">
                     <div class="card-body">
                       <h5 class="card-title">{{site.siteName}}</h5>
-                      <a class="card-text" [href]="site.siteUrl">{{site.siteUrl}}</a>
+                      <a class="card-text" [href]="site.siteUrl" target="_blank">{{site.siteUrl}}</a>
                       <div class="d-flex justify-content-between mt-3">
                         <div class="col-lg-6">
                             <a routerLink="/passwords" [queryParams]="{id : site.id, name : site.siteName, url : site.siteUrl}" href="#" 
                             class="btn btn-success mt-3">Add Password</a>
                         </div>
                         <div class="col-lg-3">
-                            <a href="#" class="btn btn-outline-primary mt-3" (click)="onEdit(site.siteName, site.siteUrl, site.imageUrl, site.id)" >Edit</a>
+                            <a class="btn btn-outline-primary mt-3" (click)="onEdit(site.siteName, site.siteUrl, site.imageUrl, site.id)" >Edit</a>
                         </div>
                         <div class="col-lg-3">
-                            <a href="#" class="btn btn-outline-danger mt-3" (click)="onDelete(site.id)" >Delete</a>
+                            <a class="btn btn-outline-danger mt-3" (click)="onDelete(site.id)" >Delete</a>
                         </div>
                       </div>
                       

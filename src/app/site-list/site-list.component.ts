@@ -33,6 +33,8 @@ export class SiteListComponent{
     this.siteName = '';
     this.siteUrl = '';
     this.imgUrl = '';
+
+    this.FormState = "Add";
   }
 
   onSubmit(values: object){

@@ -50,6 +50,8 @@ export class PasswordListComponent {
     this.email = '';
     this.password = '';
     this.username = '';
+
+    this.formState = "Add";
   }
 
   onSubmit(value : any){
