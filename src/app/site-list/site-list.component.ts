@@ -29,12 +29,19 @@ export class SiteListComponent{
     this.loadSites();
   }
 
+  resetForm(){
+    this.siteName = '';
+    this.siteUrl = '';
+    this.imgUrl = '';
+  }
+
   onSubmit(values: object){
 
     if(this.FormState === 'Add'){
       this.passwordManager.addSite(values)
       .then(() => {
-        this.showAlert("Data Saves Successfully")
+        this.showAlert("Data Saved Successfully");
+        this.resetForm();
       })
       .catch((error: any) => {
         this.showAlert(error);      
@@ -43,7 +50,8 @@ export class SiteListComponent{
     else if(this.FormState === "Edit"){
       this.passwordManager.editSite(this.id, values)
       .then(() => {
-        this.showAlert("Data Updated!");
+        this.showAlert("Data Updated Successfully!");
+        this.resetForm();
       })
       .catch((err) => {
         this.showAlert(err);
@@ -71,7 +79,7 @@ export class SiteListComponent{
       this.showAlert("Data deleted!");      
     })
     .catch((err) => {
-      console.log(err);      
+      this.showAlert(err);      
     })
   }
 }

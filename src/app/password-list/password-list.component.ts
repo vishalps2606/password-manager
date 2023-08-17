@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PasswordManagerService } from '../services/password-manager.service';
 import { Observable } from 'rxjs';
+import { AES, enc } from 'crypto-js'
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-password-list',
@@ -23,7 +25,7 @@ export class PasswordListComponent {
   formState:string = "Add";
 
   // To store the value of Add Password
-  passwordList!:Observable<Array<any>>
+  passwordList!:Array<any>
 
   // For alerts
   alertMessage: string = "";
@@ -42,8 +44,6 @@ export class PasswordListComponent {
   showAlert(message : string){
     this.isSuccess = true;
     this.alertMessage = message;
-    setTimeout(() => {
-    }, 3000);
   }
 
   resetForm(){
@@ -52,7 +52,10 @@ export class PasswordListComponent {
     this.username = '';
   }
 
-  onSubmit(value : object){
+  onSubmit(value : any){
+
+    const encryptedPassword = this.encryptPassword(value.password);
+    value.password = encryptedPassword;
     
     if(this.formState === 'Add'){
       this.passwordService.addPassword(value, this.id).then(() => {
@@ -76,7 +79,9 @@ export class PasswordListComponent {
   }
 
   loadPassword(){
-    this.passwordList = this.passwordService.loadPassword(this.id)
+    this.passwordService.loadPassword(this.id).subscribe((val) => {
+      this.passwordList = val;
+    })
   }
 
   onEdit(id:string, email:string, username:string, password:string){
@@ -86,6 +91,35 @@ export class PasswordListComponent {
     this.password = password;
 
     this.formState = "Edit";
+  }
+
+  onDelete(passId: string){
+    this.passwordService.deletePassword(this.id, passId).then(() => {
+      this.showAlert("Password Deleted Successfully!");
+    })
+    .catch((err) => {
+      this.showAlert(err);
+    })
+  }
+
+  encryptPassword(password: string){
+    this.buttonName = '🙈'
+    const secretKey = environment.apiKey;
+    return AES.encrypt(password, secretKey).toString();
+  }
+
+  buttonName:string = '🙈'; 
+  decryptPass(pass : string){
+    this.buttonName = '🌝'
+    const secretKey = environment.apiKey;
+    return AES.decrypt(pass, secretKey).toString(enc.Utf8);
+  }
+
+  onDecrypt(pass : string, index: number){
+    if(this.buttonName === '🙈')
+      this.passwordList[index].password = this.decryptPass(pass);
+    else if(this.buttonName === '🌝')
+      this.passwordList[index].password = this.encryptPassword(pass);
   }
 
 }
