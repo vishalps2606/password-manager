@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth'
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+})
+
+@Injectable({
+  providedIn: 'root'
 })
 export class LoginComponent {
 
@@ -23,11 +27,6 @@ export class LoginComponent {
       } catch (error) {
         this.isError = true;
       }
-    }
-    
-    async logout() {
-      await this.auth.signOut();
-      this.router.navigate(['/']); // Redirect on logout
     }
   
     isLoggedIn(): boolean {

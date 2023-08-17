@@ -12,6 +12,7 @@ import { SiteListComponent } from './site-list/site-list.component';
 import { PasswordListComponent } from './password-list/password-list.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     SiteListComponent,
     PasswordListComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
