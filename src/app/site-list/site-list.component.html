@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+
+<section class="py-5">
+    <div class="container">
+        <div class="top">
+            <h2 class="display-6 fw-bold">Secure Password Manager</h2>
+            <p class="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit inventore porro repellendus eos officia voluptas magni voluptatibus ut tenetur aut. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, voluptatem.</p>
+            <button class="btn btn-primary btn-lg rounded-pill">Add New Website</button>
+        </div>
+
+        <!-- ========== Alert Message ========== -->
+        <div *ngIf="isSuccess" class="bg-success p-3 my-3 text-white rounded">
+            {{ alertMessage }}
+        </div>
+
+        <!-- ========== Form =========== -->
+        <div class="form py-5">
+            <form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+                <div class="row justify-content-center ">
+                    <div class="col-lg-6 border shadow rounded py-5 glass">
+                        <h2 class="text-center text-success">{{FormState}} Site</h2>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Website Name</label>
+                            <input type="text" name="siteName"  class="form-control rounded-pill" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="siteName" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Website URL</label>
+                            <input type="text" name="siteUrl" class="form-control rounded-pill" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="siteUrl">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Website Image link</label>
+                            <input type="text" name="imageUrl" class="form-control rounded-pill" id="exampleInputPassword1" [(ngModel)]="imgUrl">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary rounded-pill w-100">{{FormState}} Site</button>    
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-outline-danger rounded-pill w-100">Cancel</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row pt-5">
+            <div *ngFor="let site of allSites | async" class="col-lg-4 col-md-6 pb-4">
+                <div class="card shadow">
+                    <img [src]="site.imageUrl">
+                    <div class="card-body">
+                      <h5 class="card-title">{{site.siteName}}</h5>
+                      <a class="card-text" [href]="site.siteUrl">{{site.siteUrl}}</a>
+                      <div class="d-flex justify-content-between mt-3">
+                        <div class="col-lg-6">
+                            <a routerLink="/passwords" [queryParams]="{id : site.id, name : site.siteName, url : site.siteUrl}" href="#" 
+                            class="btn btn-success mt-3">Add Password</a>
+                        </div>
+                        <div class="col-lg-3">
+                            <a href="#" class="btn btn-outline-primary mt-3" (click)="onEdit(site.siteName, site.siteUrl, site.imageUrl, site.id)" >Edit</a>
+                        </div>
+                        <div class="col-lg-3">
+                            <a href="#" class="btn btn-outline-danger mt-3" (click)="onDelete(site.id)" >Delete</a>
+                        </div>
+                      </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

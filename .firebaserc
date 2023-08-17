@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "password-manager-44f23": {
+      "hosting": {
+        "password-manager": [
+          "password-manager-44f23"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "password-manager-44f23"
+  }
+}
