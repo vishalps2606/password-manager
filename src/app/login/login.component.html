@@ -2,18 +2,27 @@
     <div class="banner py-5">
         <h1 class="text-center display-4 text-success fw-bold">Password Manager</h1>
     </div>
+
+     <!-- ====== Alert Message -->
+
+     <div *ngIf="isError" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{alertMessage}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+      </div>
+
     <div class="row justify-content-center">
         <div class="col-md-6 align-self-center">
-            <form class="border rounded shadow p-3">
+            <form class="border rounded shadow p-3" (ngSubmit)="onSubmit(form.value)"  #form="ngForm">
                 <h2 class="display-6 text-primary fw-bold text-center mb-4">Login</h2>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control rounded-pill" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="abc@mail.com">
+                  <input type="email" name="email" class="form-control rounded-pill" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="abc@mail.com" ngModel>
                   <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control rounded-pill" id="exampleInputPassword1" placeholder="********">
+                  <input type="password" name="password" class="form-control rounded-pill" id="exampleInputPassword1" placeholder="********" ngModel>
                 </div>
                 <button type="submit" class="btn btn-primary rounded-pill">Submit</button>
               </form>
