@@ -18,9 +18,9 @@ export class PasswordListComponent {
   siteUrl !: string; 
 
   // parameters used for update password
+  username !: string;
   email !: string;
   password !: string;
-  username !: string;
   passwordId !: string;
   formState:string = "Add";
 
@@ -86,10 +86,10 @@ export class PasswordListComponent {
     })
   }
 
-  onEdit(id:string, email:string, username:string, password:string){
+  onEdit(id:string, username:string, email:string, password:string){
     this.passwordId = id;
-    this.email = email;
     this.username = username;
+    this.email = email;
     this.password = password;
 
     this.formState = "Edit";
