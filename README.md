@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or check out the [Angular CLI 
 
 ## Requirements
 
-For this project to run, you need a 256-bit secret key, that you have to store inside the `environment.ts` file that must be inside the `environments` folder if you want to run the project according to where I have stored the variables. 
+For this project to run, you need a `256-bit secret key`(It is used for Encryption and decryption of the password) that you have to store inside the `environment.ts` file that must be inside the `environments` folder if you want to run the project according to where I have stored the variables. 
